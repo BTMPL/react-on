@@ -59,5 +59,16 @@
       "\\.(css|less)$": "identity-obj-proxy",
       "\\.(jpeg|jpg|png|gif|svg)$": "<rootDir>/__mocks__/noopMock.js"
     }
+  },
+  "eslintConfig": {
+    "parser": "babel-eslint",
+    "extends": ["standard-react"],
+    "env": {
+      "node": true,
+      "browser": true
+    },
+    "rules": {
+      "jsx-quotes": ["warn", "prefer-double"]
+    }
   }
 }
