@@ -24,17 +24,35 @@ module.exports = [
   },
   {
     test: /\.less$/,
-    use: ExtractTextPlugin.extract({
-      use: [{
-        loader:'css-loader',
-        options: {
-          modules: true,
-          localIdentName: '[local]--[hash:base64:5]',
-        }
-      }, {
-        loader:'less-loader'
-      }]
-    })
+    use: ((env) => {
+      if(env == 'production') {
+        return ExtractTextPlugin.extract({
+          use: [{
+            loader:'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[local]--[hash:base64:5]',
+            }
+          }, {
+            loader:'less-loader'
+          }]
+        });
+      }
+      else {
+        return [{
+            loader: 'style-loader'
+          }, {
+            loader:'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[local]--[hash:base64:5]',
+            }
+          }, {
+            loader:'less-loader'
+          }
+        ];
+      }
+    })(process.env.NODE_ENV)
   },
   {
     test: /\.(ttf|woff|jpeg|jpg|png|gif|svg)$/,
