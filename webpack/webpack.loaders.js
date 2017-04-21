@@ -12,16 +12,32 @@ module.exports = [
   },
   {
     test: /\.css$/,
-    use: ExtractTextPlugin.extract({
-      use: [{
-        loader:'css-loader',
-        options: {
-          modules: true,
-          localIdentName: '[local]--[hash:base64:5]',
-        }
-      }]
-    })
-  },
+    use: ((env) => {
+      if(env == 'production') {
+        return ExtractTextPlugin.extract({
+          use: [{
+            loader:'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[local]--[hash:base64:5]',
+            }
+          }]
+        });
+      }
+      else {
+        return [{
+            loader: 'style-loader'
+          }, {
+            loader:'css-loader',
+            options: {
+              modules: true,
+              localIdentName: '[local]--[hash:base64:5]',
+            }
+          }
+        ];
+      }
+    })(process.env.NODE_ENV)
+  },  
   {
     test: /\.less$/,
     use: ((env) => {
@@ -55,7 +71,7 @@ module.exports = [
     })(process.env.NODE_ENV)
   },
   {
-    test: /\.(ttf|woff|jpeg|jpg|png|gif|svg)$/,
+    test: /\.(ttf|woff|woff2|jpeg|jpg|png|gif|svg)$/,
     use: [
       {
         loader: "file-loader",
