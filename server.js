@@ -7,6 +7,7 @@ var webpack = require('webpack');
 var config = require('./webpack/webpack.config.developement.js');
 var compiler = webpack(config);
 
+app.use(require('connect-history-api-fallback')({verbose: false}));
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
   publicPath: config.output.publicPath
