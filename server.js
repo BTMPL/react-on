@@ -4,7 +4,7 @@ var express = require('express');
 var app = express();
 
 var webpack = require('webpack');
-var config = require('./webpack/webpack.config.developement.js');
+var config = require('./webpack/webpack.config.development.js');
 var compiler = webpack(config);
 
 app.use(require('connect-history-api-fallback')({verbose: false}));
