@@ -1,12 +1,12 @@
 var path = require("path");
 var webpack = require("webpack");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var DirectoryNamedWebpackPlugin = require("directory-named-webpack-plugin");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var rimraf = require('rimraf');
 
 
 module.exports = {
+  mode: "production",
   entry: ["./src/index.js"],
   output: {
     path: path.join(__dirname, "..", "dist"),
@@ -15,6 +15,9 @@ module.exports = {
   },
   module: {
     rules: require('./webpack.loaders.js')
+  },
+  optimization: {
+    minimize: true
   },
   plugins: [
     function() {
@@ -28,13 +31,9 @@ module.exports = {
       "environment": '"production"',
       NODE_ENV: JSON.stringify("production")
     }),
-    new (webpack.optimize.UglifyJsPlugin),
     new HtmlWebpackPlugin({template: path.join("src", "public", "index.ejs")}),
   ],
   resolve: {
-    modules: ["node_modules", "src"],
-    plugins: [
-      new DirectoryNamedWebpackPlugin()
-    ]
+    modules: ["node_modules", "src"]
   }
 }
