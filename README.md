@@ -1,4 +1,4 @@
-#Introduction
+# Introduction
 
 This is a sample repository showing how to setup a React working environment
 from scratch. Currently implemented:
@@ -12,6 +12,6 @@ from scratch. Currently implemented:
 - eslint
   - eslint react rules
 
-#License
+# License
 
 MIT
